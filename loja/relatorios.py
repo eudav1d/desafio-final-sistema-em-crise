@@ -11,10 +11,9 @@ def relatorio_clientes(conn):
     """
     sql = """
         SELECT c.nome, c.cidade, COUNT(p.id) AS qtd
-        FROM clientes c
-        LEFT JOIN pedidos p ON p.cliente_id = c.id
-        WHERE p.feito_em >= '2026-01-01'
-        GROUP BY c.id
-        ORDER BY c.nome
+      FROM clientes c
+      LEFT JOIN pedidos p ON p.cliente_id = c.id AND p.feito_em >= '2026-01-01'
+      GROUP BY c.id
+      ORDER BY c.nome
     """
     return [tuple(r) for r in conn.execute(sql).fetchall()]
